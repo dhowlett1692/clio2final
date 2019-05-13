@@ -1,0 +1,146 @@
+---
+title: "Salem Possessed by Accusations"
+description:
+  Re-Examing Salem Village Factionalism through Accusation Data
+author:
+  - name: Daniel Howlett 
+    url: https://www.salemnetworks.org
+    affiliation: George Mason University
+    affiliation_url:
+date: "`r Sys.Date()`"
+output: distill::distill_article
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+library(tidyverse)
+library(ggplot2)
+library(plotly)
+library(rmarkdown)
+accuser_data <- read.csv("Accuser CSV data.csv", fileEncoding="UTF-8-BOM")
+```
+
+The Salem Witch Trials are heavily discussed in early American history. However, questions persist and historiographic interpretations fail to fully explain how the trials happened. The accusations in 1692 were intentional and strategic actions that played on fears to aid a political agenda.  This is not to suggest a vast, premeditated conspiracy amongst hundreds of people, or even a few people.  Individual actors saw opportunities presented to them, and they made calculated decisions as these moments occurred throughout 1692.  By focusing on the accusers, the Salem Witch Trials appear less accidental and more political as the roles of certain accusers are highlighted in different ways than previous scholarship.  It is nothing new to declare the importance of Ann Putnam Jr.'s role in naming suspects, but demonstrating how important and comparing levels of accuser influence offers a new understanding of the accusations.  108 people from all over Massachusetts took part in accusing neighbors of witchcraft, but eight made more accusations than the other 100.  A quantitative analysis of these accusations confirms ideas of early scholarship, challenges more recent arguments, and adds a new perspective to the events of 1692.
+
+Salem's historiography requires careful appreciation of the many nuances between arguments as this crowded literature seems to endlessly grow each year.  Perhaps the most influential of is Paul Boyer and Stephen Nissenbaum's *Salem Possessed* (1974).  In the past 45 years, historians have torn apart the arguments and evidence in this classic work, but it remains an essential book on the period.  The economic data and thesis of the book is generally seen as outdated, and without the discovery of more tax records to aid or finally defeat Boyer and Nissenbaum, a significant portion of *Salem Possessed* can be skipped.  But unlike most historians, Boyer and Nissenbaum scrutinize the Putnam family and their role in the trials.  No historian disagrees with the Putnam's role, but no one else treats the Putnam political agenda as the central theme.  By failing to prove the Putnam influence through economic evidence, Boyer and Nissenbaum leave a lot unanswered. Their contribution exposes the factionalism in Salem and Salem Village that fueled political tensions over support for the Village minster Rev. Samuel Parris.  "Unable to relieve their frustrations politically, the members of the pro-Parris faction unconsciously fell back on a different and more archaic strategy: they treated those who threatened them not as political opposition but as an aggregate of morally defective individuals."^[Boyer, Paul and Stephen Nissenbaum. *Salem Possessed: The Social Origins of Witchcraft*. Cambridge, Harvard University Press: 1974. 109.]  Boyer and Nissenbaum include a few tangents into unsubstantial psychological arguments, but this tension and hatred between political factions is evident in their work.  From 1672 to 1692, four ministers preached at the Salem Village Church, each leaving after the deep-seated division forced them out. During the accusations, many of the faction lines appeared between accusers and accused.  The takeaway from this book is that this factionalism was out with full force in 1692 and the Putnam family played a key role in supporting Rev. Samuel Parris and identifying political enemies.
+
+Mary Beth Norton's *In the Devil's Snare* (2002) offers a different explanation for the outbreak of witchcraft accusations.  Norton looks north of Salem to examine violence on the Maine frontier and its influence on regional anxiety.  Refugees from Maine fled to towns like Salem and eventually became major actors during the trials.  "The witchcraft crisis of 1692 can be comprehended only in the context of nearly two decades of armed conflict between English settlers and the New England Indians" which helped make the Salem Witch Trials distinct from other witch hunts.^[Norton, Mary Beth. *In the Devil's Snare: The Salem Witchcraft Crisis of 1692*. New York, Alfred A. Knolf: 2002. 12.] Norton explains how the frontier ties influenced Salem, such as accuser Mercy Lewis's family suffering losses at the hands of Indian raids compared to the accused George Burroughs surviving two major raids.  Personal backgrounds mattered in making accusations since decade long family feuds appeared in 1692, and Norton's argument describes the fears influencing people and communities.  However, while this clarifies why some people made accusations, it does not explain how the accusations succeeded.
+
+In 2008, *The William and Mary Quarterly* dedicated an issue to a forum revisiting *Salem Possessed*.  Boyer and Nissenbaum participated saying "we find it frustrating to deal with narrowly focused criticism that ignores our book's overall structure and the full range of evidence offered."^[Boyer, Paul and Stephen Nissenbaum. "'Salem Possessed' in Retrospect". *The William and Mary Quarterly*. 65.3 (2008). 524.]  There is an underappreciated aspect of Boyer and Nissenbaum's work.  In some ways, their theory holds water, but the forum emphasized the book's flaws.  Richard Latner's article even ends his critique stating the lasting contribution of their factional research, but "Explaining what happened in Salem Village in 1692 will take a different sort of thesis from that offered in *Salem Possessed*", specifically citing the attempt to write an economic argument.^[Latner, Richard. "Salem Witchcraft, Factionalism, and Social Change Reconsidered: Were Salem's Witch-Hunters Modernization's Failures?". *The William and Mary Quarterly*. 65.3 (2008). 448.]  Digital history offers ways to return to a factional anaylsis with more and better data analysis supplemented by a rich literature contextualizing Massachusetts in 1692.
+
+
+This dataset looks at the accusers of the witch trials with several network and demographic variables.  The network data comes from an ongoing project I started as an undergraduate student at George Washington University.  My thesis was presented at www.salemnetworks.org and represents a portion of the project.  It was started in spring 2015 with funding from the Diexler-Swain Prize and donations from Dr. Diane Cline and Dr. Emerson Baker.  After collecting the edges from the 1692-93 court records, I spent the summer 2016 gathering information on the accusations.
+
+```{r, layout= "1-page"}
+paged_table(accuser_data)
+```
+
+1. Name. There 108 accusers who named someone during the Salem Witch Trials.  They are the people who claimed to see a spectral figure and suffered physical symptoms.  This does not include neighbors who testified about a suspect's past behavior that hinted at witchcraft.
+
+2. Accusations. This is defined by the number of people named as a witch by an accuser regardless of legal action taken against the named suspect.  There were 893 separate accusations made against 177 people. There is a mean of 8.27 accusations per accuser with a median of 2 and a range of 1 to 83 accusations.
+
+3. Relationships. In social network terms, this is the number of degrees according to my social network data. The degrees are defined by interactions documented in the 1692-93 court records.  This includes inferred relationships such as two people actively participating in the same event (ie both testified in the same examination) and therefore the two people likely know who each other is in some capacity.  The accusers have 3,630 degrees from the original network's 9,929 degrees between 1,465 people.  The average is 33.61 relationships with a median of 21 and a range of 1 to 211 relationships.
+
+4. Percentage. This is the percent of an accuser's degrees that are accusations (Accusations/Relationship).  The mean percent is .22 with a median of .17 and a range of .02 to .69.  This excludes one accuser with 1 degree, an accusation and therefore a 100%.  A contemporary secondary source references an accusation made by Sarah Coleman but provides no other information.
+
+5. Month. This is the  month the accuser made their first accusation or is first documented having made an accusation.  Accusations were made between February 1692 and November 1692.  One accuser, Mary Watkins, is known to have named a suspect, but the date is unknown.
+
+6. Sex.  There were 83 female accusers and 25 male accusers.
+
+7. Age.  The mean age of accusers was 25.57 with a median of 21 and a range of 7 to 81.  There are 19 accusers whose ages are unknown.
+
+8. Marital Status.  43 accusers were married, 60 were single, and 5's marital status were unknown.
+
+9. Town.  The accusers came from 17 towns.  8 towns only had one accuser.
+
+10. Role. This classifies each name as an Accuser or a Confessor based on their first accusation regardless of any later confession (such as Mary Warren who was an accuser before being named and confessing).  While they are broadly all accusers, there was a difference between their roles.  There were 61 accusers and 47 confessors.
+
+This first figure shows a comparison of Relationships and Accusations.
+
+```{r, layout = "1-body-outset"}
+fig1 <- accuser_data %>%
+ggplot(aes(x = Relationships, y = Accusations, color = Role, text = paste(Name, "|", Age, "|", Town))) +
+  geom_point(size = 1)+
+  labs(x = "Number of Relationships",
+       y = "Number of Accusations Made",
+       title = "Salem Witch Trial Accuser Network Data",
+       subtitle= "Comparing Accusations and Interactions") +
+  scale_x_continuous(breaks = seq(0, 220, by = 20)) +
+  scale_y_continuous(breaks = seq(0, 90, by = 5)) +
+  theme(legend.title = element_blank())
+
+ggplotly(fig1) %>%  layout(legend = list(x = 1, y = .5))
+
+```
+<aside>
+This figure shows the correlation between the number of accusations made by an accuser and the number of people they interacted with during the legal proceedings.  The more accusations a person made, the more relationships they had given the introduction of people to the trials with each new case file.  However, it also shows a small number of accusers made a majority of accusations indicating how reliant the entirety of the trials were on less than eight accusers.
+</aside>
+Unsurprisingly, there is a linear relationship between the number of accusations made and the number of relationships a person had in the court records: the more accusations someone had, the more likely they had more involvement in legal settings.  However, more in-depth, this reveals how certain accusers outpace nearly all the others.  The upper right corner shows only a few naming over 40 suspects, notably all from Salem and Salem Village, women, and below the median age.  This demonstrates the reliance on a few select accusers throughout the court records.  Only 8 accusers have more than 100 relationships totaling 1,259 degrees.  8 accusers of 108, less than 8%, represent 34.68% (1,259/3,630) of accuser relationships.  Ann Putnam Jr., Mary Walcott, Abigail Williams, Mary Warren, Mercy Lewis, Elizabeth Hubbard, Susannah Sheldon, and Sarah Bibber made 51% of the accusations made in 1692, with a total of 456 accusations.  In many ways, the Salem Witch Trials were a Massachusetts Bay Colony wide event, but these numbers show how it also played on individual levels.  Many people were involved, but only a few directed the growth of it.
+
+The witch trials are generally considered in two phases, the Salem phase followed by the Andover phase, so here is a comparison of towns to see where the accusers came from, as well as their role in the trials.
+
+```{r, layout = "1-body-outset"}
+fig2 <- accuser_data %>%
+  ggplot(aes(x =Town, fill = Role)) + geom_bar(position = position_dodge()) +
+  labs(title = "Accuser Count by Town and Role",
+       y = "Number of Accusers",
+       x = "Town")+
+  coord_flip() + 
+  scale_y_continuous(breaks = seq(0, 50, by = 5)) +
+  theme(legend.title = element_blank())
+
+ggplotly(fig2) %>% layout(legend = list(x = 1, y = .5))
+
+```
+<aside>
+This figure shows how many accusers, separated by role, came from each town during the accusations.  Andover, Salem, and Salem Village stand out compared to the other communities.
+</aside>
+The accusers came from seventeen communities, but three stand out.  Andover, Salem, and Salem Village provided many more accusers than other towns.  Andover notably had more confessors rather than accusers that named suspects.  As the second phase of the accusations, Andover suspects, mostly those accused in August and September, realized the strategy of confessing.  After the executions through the summer, only those who refused to confess hanged.  Those who admitted to witchcraft received a delay in their trials in order to serve as witnesses against other accused suspects.  Andover's later entry into the accusations gave many of its accused the chance to give a false confession.  Richard Hite's *In the Shadow of Salem* counts 45 accused suspects from Andover.^[Hite, Richard. *In the Shadow of Salem: The Andover Witch Hunt of 1692*. Yardley, PA, Westholme: 2018.]  31 of Andover's 45 suspects gave confessions that named other suspects.  While other towns had more confessors than accusers (although its 1 to 0 or 2 to 1), Andover clearly experienced a different type of accusations. Accusations from Andover were more likely made by someone in Salem after being arrested.  Salem and Salem Village accusers more likely made accusations amongst their home community without the coercion of an imminent execution.
+
+Ignoring the confessors for the moment, Salem Village had the most accusers.  The accusations began in Salem Village so this is an expected number, but consider what this means for the spread of accusations.  Salem Village accusers began the accusations and no other town outpaced them.  Accusations were not a pathogen that spread town to town but were a phenomenon that took hold in specific communities.  There are clearly two hubs of activity between Salem/Salem Village and Andover, but the Village is key.  As the starting place of the accusations and the home to the highest number of willful accusers, Salem Village's political atmosphere is much more likely to be closely tied to the outbreak of accusations.  Ann Putnam Jr.'s status as the most accusatory with the most degrees confirms the role of Putnam family politics.  Her relative Mary Walcott coming in second on both accounts, the Putnam maid Mercy Lewis in the top five, and Rev. Parris's niece Abigail Williams as the third most accusatory reinforce the Boyer and Nissenbaum factionalism argument.  The trials may be set in the context of frontier violence, but themes of the Indian wars are not prominent in their accusations.  Mary Beth Norton is not wrong, but nothing happens in 1692 without Putnam family politics.
+
+Consider this count of individual accusations.  Each unique pair of accuser-accused instances in the court records is marked by the accuser's hometown.  For example, Ann Putnam Jr. named Rebecca Nurse several times, but that only counts as one accusation.  Then for every person to name Nurse, they are another accusation counted.  This does include some accusations made after an execution.  Andover confessors often invoked the names of executed victims to add credibility to accusations.
+
+
+```{r, layout = "1-body-outset"}
+fig3 <- accuser_data %>%
+  group_by(Town) %>%
+  summarize(Accusations = sum(Accusations)) %>%
+  ggplot(aes(x = Town, y = Accusations)) + geom_col(fill= 'red') +
+  coord_flip() + 
+  labs(title = "Accusation Count by Town",
+       x = "Town",
+       y = "Number of Unique Accusations") +
+  scale_y_continuous(breaks = seq(0, 400, by = 25)) +
+  theme_gray() +
+  scale_fill_brewer()
+
+ggplotly(fig3)
+```
+<aside>
+Here the accusations are counted by town to show how many unique accusations originated from each community.
+</aside>
+Compared to the number of accusers in each town, the number of accusations originating from each town is noticeably different.  While Andover had 45 total accusers to Salem Village's 18, Salem Village exceeds Andover's accusation count by 113.  This rebukes the notion of an Andover phase compared to a Salem Village phase.  This was a Salem Village event with Andover participation.  On average, Andover accusers and confessors made 5.8 accusations, but Salem Village accusers made 21.  These averages skew away from individual roles, for instance Ann Putnam Jr.'s 83 accusations are about 22% of Salem Village's accusations.  Andover was an important part of 1692, but their accusers are nowhere near as effective as Salem Village.  In my previous research, I noted that based on the network of spectral figures seen during the trials, suspects needed to be tied to the Salem Village linked suspects for accusations to succeed.  Martha Carrier is not named the Queen of Hell without the king George Burroughs appearing in the same cases.  Andover confessions were not credible without references to Sarah Good and Rebecca Nurse's prominent placements at the Devil's sacrament.  This process of renaming old suspects prevented Andover from making new accusations, thereby only allowing the town to catch up to Salem Village rather than lead their own witch hunt.  Confessions gave accusations, but they never fueled the hysteria.  The accusation count shows the dependence on a select group of accusers, a group heavily tied to Salem Village factionalism.  
+
+The following graph shows one way these few accusers defined their significance.
+
+```{r, layout = "1-body-outset"}
+fig5<- accuser_data %>%
+ggplot(aes(x = Percentage, y = Accusations, text = paste(Name, "|", Age, "|", Town, "|", Role))) +
+  geom_point(aes(color = Relationships))+
+  scale_color_gradient(low = "blue", high = "Red")+
+  labs(title = "The Proportion of Accusations to Relationships",
+    x = "Percent of Relationships that are Accusations",
+       y = "Number of Accusations Made") +
+  theme_gray()
+
+ggplotly(fig5)
+```
+<aside>
+This figure shows how many accusations an accuser made compared to the percentage that suspects they accused made of their relationships in the court records.  The shading of the points shows the limited range of relationships by most accusers except for those with the most accusations who also share a similar percentage.
+</aside>
+The seven most accusatory people in this data set line up together around 40%.  Between 33% and 43% of their relationships in the court documents are suspects they named.  The mean and median for percentage was less than 25%, so already this group is above average.  The five from Salem- Ann Putnam Jr., Mary Walcott, Abigail Williams, Mercy Lewis, and Elizabeth Hubbard- are again the same ones tied to factionalism.  But what is interesting about this relationship, beyond how they share a similar rate of accusations per relationships, is how definitive the 40% line really is.  Only seven accusers go beyond 50%, and five of them have a single digit number of relationships.  The remaining two, Mary Lacey Sr. and Timothy Swan have less than 30 connections each.  The most active accusers all have over 100 relationships and achieve nearly uniform percentages. Even the most active Andover accusers Martha Sprague, Rose Foster, and confessor turned afflicted Richard Carrier maintain a 37-40% rate.
+
+Case files were not uniform, but who accusers interacted with became more and more uniform over time.  Accusers typically interacted with family members, other accusers, the judges, and the suspects, with other deponents often thrown into the mix.  However, as the trials kept going, the number of participants plateaued except for accused witches.  As the trials went on, a sort of formula developed of who was in the room when it happened.  Accuser networks expanded only to name other people with limited variance.  As cases became rushed towards the end of the trials, accusations were pushed quickly.  A basic network for the Salem Village accusers was established, and only grew through names offered brought to the spotlight by other towns.  Salem Village turned into a factory of accusations to support regional witch hunting efforts.  While Andover accusers gave names, their accusations and confessions never fueled the hysteria.  Other communities only offered opportunities for Salem Village factionalism to explode beyond its borders.  Frontier fears aided this expansion, but Putnam faction in Salem Village made the calculations to enact a witch hunting agenda.
+
+
